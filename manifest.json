@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Padding Changer",
+  "description": "A chrome extension that changes the padding-right and padding-left properties of the div element on the webpage.",
+  "version": "2.2.4",
+  "author": "Ayoub EL-MHAMDI",
+  "permissions": [
+    "tabs"
+  ],
+  "host_permissions": [
+    "http://localhost:*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://localhost:*/*"
+      ],
+      "js": [
+        "arrive.min.js",
+        "index.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
