@@ -16,26 +16,31 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function bingRemoveBg() {
-    alert('BingChat website');
-    var mainDiv = document.querySelector("#b_sydConvCont > cib-serp");
-    if (mainDiv) {
-        var cibConversationMain = mainDiv.shadowRoot.querySelector("#cib-conversation-main");
-        if (cibConversationMain) {
-            var civChatTurn = cibConversationMain.shadowRoot.querySelector("#cib-chat-main").querySelectorAll('cib-chat-turn');
-            civChatTurn.forEach(function(chatTurn) {
-                var cibMessage = chatTurn.shadowRoot.querySelector('cib-message-group.response-message-group').shadowRoot.querySelectorAll('cib-message');
-                cibMessage.forEach(function(message) {
-                    message.setAttribute("output-background", "bing-result");
+    if (window.location.hostname === "bing.com" || window.location.hostname === "www.bing.com"){
+        alert('BingChat website');
+        var mainDiv = document.querySelector("#b_sydConvCont > cib-serp");
+        if (mainDiv) {
+            var cibConversationMain = mainDiv.shadowRoot.querySelector("#cib-conversation-main");
+            if (cibConversationMain) {
+                var civChatTurn = cibConversationMain.shadowRoot.querySelector("#cib-chat-main").querySelectorAll('cib-chat-turn');
+                civChatTurn.forEach(function(chatTurn) {
+                    var cibMessage = chatTurn.shadowRoot.querySelector('cib-message-group.response-message-group').shadowRoot.querySelectorAll('cib-message');
+                    cibMessage.forEach(function(message) {
+                        message.setAttribute("output-background", "bing-result");
+                    });
                 });
-            });
+            }
+            else {
+                console.error("cibConversationMain not found");
+            }
         }
         else {
-            console.error("cibConversationMain not found");
-        }
+            console.error("mainDiv not found");
+        }  
     }
-    else {
-        console.error("mainDiv not found");
-    }  
+    else{
+        alert('This is not BingChat website');
+    }
 }
 
 function functionForButton2() {
