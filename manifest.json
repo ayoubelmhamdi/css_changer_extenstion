@@ -9,7 +9,9 @@
     "default_title": "Ayoub ext"
   },
   "permissions": [
-    "tabs"
+    "tabs",
+    "activeTab",
+    "scripting"
   ],
   "content_scripts": [
     {
@@ -18,7 +20,7 @@
       ],
       "js": [
         "arrive.min.js",
-        "jquery.min.js",
+        "popup.js",
         "index.js"
       ],
       "run_at": "document_end"
