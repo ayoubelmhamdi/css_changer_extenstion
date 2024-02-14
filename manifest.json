@@ -4,22 +4,24 @@
   "description": "A chrome extension that changes the padding-right and padding-left properties of the div element on the webpage.",
   "version": "2.2.4",
   "author": "Ayoub EL-MHAMDI",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Ayoub ext"
+  },
   "permissions": [
     "tabs"
-  ],
-  "host_permissions": [
-    "http://localhost:*/*"
   ],
   "content_scripts": [
     {
       "matches": [
-        "http://localhost:*/*"
+        "<all_urls>"
       ],
       "js": [
         "arrive.min.js",
+        "jquery.min.js",
         "index.js"
       ],
-      "run_at": "document_idle"
+      "run_at": "document_end"
     }
   ]
 }
