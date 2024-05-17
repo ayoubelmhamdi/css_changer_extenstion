@@ -1,23 +1,31 @@
 // popup.js
-// document.querySelector('h1').addEventListener('click', function() {
-//     alert('Hello, World!');
-// });
 
+const buttonFunctionMap = {
+    'button1': bingRemoveBg,
+    'button2': functionForButton2,
+    'button3': functionForButton3,
+};
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('button1').addEventListener('click', function() {
+function setupButtonListener(buttonId, pageFunction) {
+    document.getElementById(buttonId).addEventListener('click', function() {
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             chrome.scripting.executeScript({
                 target: {tabId: tabs[0].id},
-                function: bingRemoveBg
+                func: pageFunction
             });
         });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    Object.keys(buttonFunctionMap).forEach(buttonId => {
+        setupButtonListener(buttonId, buttonFunctionMap[buttonId]);
     });
 });
 
 function bingRemoveBg() {
     if (window.location.hostname === "bing.com" || window.location.hostname === "www.bing.com"){
-        alert('BingChat website');
+        // alert('BingChat website');
         var mainDiv = document.querySelector("#b_sydConvCont > cib-serp");
         if (mainDiv) {
             var cibConversationMain = mainDiv.shadowRoot.querySelector("#cib-conversation-main");
@@ -44,16 +52,20 @@ function bingRemoveBg() {
 }
 
 function functionForButton2() {
-    alert('Button 2 clicked!');
+    if (window.location.hostname === "bing.com" || window.location.hostname === "www.bing.com" || window.location.hostname === "copilot.microsoft.com") {
+
+        // alert('Augment Bing Chat message charcters limit');
+        var searchBox = document.querySelector("#b_sydConvCont > cib-serp").shadowRoot.querySelector("#cib-action-bar-main").shadowRoot.querySelector("div > div.main-container > div > div.input-row > cib-text-input").shadowRoot.querySelector("#searchbox");
+        searchBox.maxLength = 25000;
+
+        var letterCounter = document.querySelector("#b_sydConvCont > cib-serp").shadowRoot.querySelector("#cib-action-bar-main").shadowRoot.querySelector("div > div.main-container > div > div.bottom-controls > div.bottom-right-controls > div.letter-counter").childNodes[3];
+        letterCounter.textContent = 25000;
+    }
+    else{
+        alert('This is not BingChat website');
+    }
 }
 
 function functionForButton3() {
     alert('Button 3 clicked!');
 }
-
-// Add event listeners to your buttons when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function () {
-    // document.getElementById('button1').addEventListener('click', bingRemoveBg);
-    document.getElementById('button2').addEventListener('click', functionForButton2);
-    document.getElementById('button3').addEventListener('click', functionForButton3);
-});

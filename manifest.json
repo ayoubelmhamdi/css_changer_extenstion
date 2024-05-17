@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "Padding Changer",
-  "description": "A chrome extension that changes the padding-right and padding-left properties of the div element on the webpage.",
+  "name": "Ayoub Utils",
+  "description": "A chrome extension that changes proprieties of the elements on the webpages.",
   "version": "2.2.4",
   "author": "Ayoub EL-MHAMDI",
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Ayoub ext"
+    "default_title": "Ayoub Utils"
   },
   "permissions": [
     "tabs",
